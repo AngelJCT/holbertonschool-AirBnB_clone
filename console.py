@@ -140,7 +140,6 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attribute_name, value)
         obj.save()
 
-
     def emptyline(self):
         """Do nothing when hit enters\n"""
         pass

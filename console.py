@@ -90,39 +90,54 @@ class HBNBCommand(cmd.Cmd):
                 print(storage.all()[obj].__str__())
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and if
-        by adding or updating attribute (save the change into the JSON file)"""
         if not arg:
-            print("** class name missing **")
+            print('** class name missing **')
             return
 
-        li_arg = arg.split()
-        if len(li_arg) == 1:
-            print("** instance id missing **")
+        input_args = arg.split()
+        class_name = input_args[0]
+
+        if class_name not in globals ():
+            print('** class doesn\'t exist **')
             return
 
-        try:
-            statement = f"{li_arg[0]}.{li_arg[1]}"
-            storage.all()[statement]
-        except KeyError:
+        instance_id = input_args[1]
+
+        if instance_id not in storage.all()[class_name].keys():
             print("** no instance found **")
             return
 
-        if len(li_arg) == 2:
+        if len(input_args) == 2:
+            print("** instance id missing **")
+            return
+
+        attribute_name = input_args[2]
+
+        if len(input_args) == 3:
             print("** attribute name missing **")
             return
 
-        if len(li_arg) == 3:
+        if len(input_args) == 4:
             print("** value missing **")
             return
 
-        try:
-            statement = f"{li_arg[0]}.{li_arg[1]}"
-            obj = storage.all()[statement]
-            setattr(obj, li_arg[2], li_arg[3])
-            obj.save()
-        except Exception:
-            print("** value missing **")
+        value = ' '.join(input_args[3:])
+
+        if value.startswith('"') and value.endswith('"'):
+            value = value[1:-1]
+        else:
+            try:
+                value = int(value)
+            except ValueError:
+                try:
+                    value = float(value)
+                except ValueError:
+                    pass
+
+        obj = storage.all()[class_name][instance_id]
+        setattr(obj, attribute_name, value)
+        obj.save()
+
 
     def emptyline(self):
         """Do nothing when hit enters\n"""

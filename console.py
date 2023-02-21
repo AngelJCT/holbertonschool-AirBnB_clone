@@ -90,6 +90,8 @@ class HBNBCommand(cmd.Cmd):
                 print(storage.all()[obj].__str__())
 
     def do_update(self, arg):
+        """ Updates an instance based on the class name and if
+        by adding or updating attribute (save the change into the JSON file)"""
         if not arg:
             print('** class name missing **')
             return

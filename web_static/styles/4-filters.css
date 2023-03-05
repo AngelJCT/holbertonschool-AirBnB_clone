@@ -4,10 +4,8 @@
     width: 100%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
-    display: flex;
-    align-items: center;
 }
-button {
+.filters button {
     background-color: #FF5A5F;
     color: white;
     border: none;
@@ -15,10 +13,11 @@ button {
     font-size: 18px;
     height: 48px;
     width: 20%;
-    right: 30px;
-    top: 11px;
-    position: absolute;
+    margin-right: 30px;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
-button:hover {
-    opacity: 0.9;
+.filters button:hover {
+    opacity: 90%;
 }
